@@ -35,3 +35,18 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
 
         return user
+
+
+
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+
+class EmailTokenSerializer(TokenObtainPairSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'] = self.fields.pop('username')
+
+    def validate(self, attrs):
+        attrs['username'] = attrs.pop('email')
+        return super().validate(attrs)

@@ -1,3 +1,6 @@
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import EmailTokenSerializer
+from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.decorators import (
     api_view,
@@ -41,3 +44,19 @@ def register_user(request):
         serializer.errors,
         status=status.HTTP_400_BAD_REQUEST
     )
+
+
+class EmailLoginView(TokenObtainPairView):
+    serializer_class = EmailTokenSerializer
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def current_user(request):
+    user = request.user
+    return Response({
+        "id": user.id,
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "email": user.email
+    })
