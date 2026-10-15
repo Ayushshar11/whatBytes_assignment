@@ -164,6 +164,4 @@ Content-Type: application/json
 ```
 
 
-## License
 
-This project was developed as a Django healthcare backend assignment.
