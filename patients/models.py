@@ -18,7 +18,7 @@ class Patient(models.Model):
     name = models.CharField(max_length=150)
     age = models.PositiveIntegerField()
     gender = models.CharField(
-        max_length=10,
+        max_length=20,
         choices=GENDER_CHOICES,
     )
     address = models.TextField()

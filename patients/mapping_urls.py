@@ -9,8 +9,8 @@ from .views import (
 urlpatterns = [
     path("", MappingListCreateView.as_view(), name="mapping-list-create"),
     path(
-        "<int:patient_id>/",
+        "<int:pk>/",
         MappingDetailView.as_view(),
-        name="mapping-detail",
+        name="mapping-patient-detail",
     ),
 ]

@@ -44,6 +44,14 @@ class PatientSerializer(serializers.ModelSerializer):
             )
         return value
 
+    def validate_address(self, value):
+        value = value.strip()
+        if not value:
+            raise serializers.ValidationError(
+                "Address cannot be empty."
+            )
+        return value
+
 
 class PatientDoctorMappingSerializer(serializers.ModelSerializer):
     doctor_details = DoctorSerializer(

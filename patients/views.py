@@ -65,11 +65,11 @@ class MappingDetailView(generics.GenericAPIView):
             patient__user=self.request.user
         ).select_related("patient", "doctor")
 
-    def get(self, request, patient_id):
+    def get(self, request, pk):
         # GET /api/mappings/<patient_id>/
         patient = get_object_or_404(
             Patient.objects.filter(user=request.user),
-            pk=patient_id,
+            pk=pk,
         )
 
         mappings = self.get_queryset().filter(patient=patient)
@@ -77,11 +77,11 @@ class MappingDetailView(generics.GenericAPIView):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def delete(self, request, patient_id):
+    def delete(self, request, pk):
         # DELETE /api/mappings/<mapping_id>/
         mapping = get_object_or_404(
             self.get_queryset(),
-            pk=patient_id,
+            pk=pk,
         )
 
         mapping.delete()
